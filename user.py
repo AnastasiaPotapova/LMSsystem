@@ -84,23 +84,3 @@ class UserManager:
             print("[ERR]", e)
 
 
-# Пример использования
-if __name__ == "__main__":
-    manager = UserManager()
-    
-    # Добавляем пользователей
-    manager.post("admin@mail.com", "admin123", "admin")
-    manager.post("user@mail.com", "password123")
-    
-    # Получаем всех пользователей
-    users = manager.get_all()
-    print("Все пользователи:")
-    for user in users:
-        print(user)
-    
-    # Обновляем пользователя
-    manager.edit(1, new_role="superadmin")
-    
-    # Ищем по email
-    user = manager.get_by_email("user@mail.com")
-    print(f"Найден по email: {user}")
