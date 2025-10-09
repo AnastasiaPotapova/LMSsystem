@@ -1,5 +1,5 @@
 
-from sqlalchemy import create_engine, Column, Integer, ARRAY
+from sqlalchemy import create_engine, Column, Integer, ARRAY #ээээээ
 from sqlalchemy.orm import declarative_base, sessionmaker
 
 # Настройка базы данных
