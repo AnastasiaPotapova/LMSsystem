@@ -1,5 +1,4 @@
-
-from sqlalchemy import create_engine, Column, Integer, ARRAY #ээээээ
+from sqlalchemy import create_engine, Column, Integer, ARRAY
 from sqlalchemy.orm import declarative_base, sessionmaker
 
 # Настройка базы данных
@@ -14,7 +13,6 @@ class Chapter(Base):
     id = Column(Integer, primary_key=True)
     lesson = Column(ARRAY, primary_key=True)
     task = Column(ARRAY, primary_key=True)
-
 
     def __repr__(self):
         return f"<Chapter(id={self.id}, lesson={self.lesson}, task={self.task})>"
@@ -47,35 +45,61 @@ class ChapterManager:
         """Получить все главы"""
         return self.session.query(Chapter).all()
 
-    def edit(self, id, new_role=None):
+    def edit(self, id, new_id=None):
         """Редактировать id"""
         chapter = self.get(id)
         if not chapter:
             print("[ERR] Глава не найдена")
-            return
+            return False
         if new_role:
-            chapter.role = new_role
-
+            chapter.id = new_id
         try:
             self.session.commit()
             print(f"[OK] Глава {id} обновлена")
+            return True
+        except Exception as e:
+            self.session.rollback()
+            print("[ERR]", e)
+            return False
+
+    def add_lesson(self, ch, lessonc):
+        """Добавить урок (содержание) к главе"""
+        chapter = self.get(ch)
+        if not chapter:
+            print("[ERR] Глава не найдена")
+            return
+
+        # Если массив уроков пуст, создаем новый массив
+        if chapter.lesson is None:
+            chapter.lesson = [lessonc]
+        else:
+            # Добавляем урок в существующий массив
+            chapter.lesson = list(chapter.lesson) + [lessonc]
+
+        try:
+            self.session.commit()
+            print(f"[OK] Урок '{lessonc}' добавлен к главе")
         except Exception as e:
             self.session.rollback()
             print("[ERR]", e)
 
-    def delete(self, id):
-        """Удалить главу"""
-        chapter = self.get(id)
+    def add_task(self, ch, taskc):
+        """Добавить задание (содержание) к главе"""
+        chapter = self.get(ch)
         if not chapter:
             print("[ERR] Глава не найдена")
             return
-        self.session.delete(chapter)
-        self.session.commit()
-        print(f"[OK] Глава {id} удалена")
 
-    def add_lesson(self):
-        ...
+        # Если массив заданий пуст, создаем новый массив
+        if chapter.task is None:
+            chapter.task = [taskc]
+        else:
+            # Добавляем задание в существующий массив
+            chapter.task = list(chapter.task) + [taskc]
 
-    def add_task(self):
-        ...
-
+        try:
+            self.session.commit()
+            print(f"[OK] Задание '{taskc}' добавлено к главе")
+        except Exception as e:
+            self.session.rollback()
+            print("[ERR]", e)
