@@ -1,0 +1,83 @@
+.lessons-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.lessons-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lesson-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 15px 20px;
+  margin-bottom: 12px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  transition: box-shadow 0.2s;
+}
+
+.lesson-item:hover {
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+
+.lesson-info h3 {
+  margin: 0 0 6px;
+  font-size: 18px;
+}
+
+.lesson-info p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 14px;
+}
+
+.lesson-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.open-btn, .edit-btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+  text-align: center;
+}
+
+.open-btn {
+  background-color: #2563eb;
+}
+
+.open-btn:hover {
+  background-color: #1d4ed8;
+}
+
+.edit-btn {
+  background-color: #10b981;
+}
+
+.edit-btn:hover {
+  background-color: #059669;
+}
+
+/* Мобильная адаптация */
+@media (max-width: 600px) {
+  .lesson-item {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .lesson-actions {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-top: 10px;
+  }
+}
