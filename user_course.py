@@ -6,21 +6,18 @@ engine = create_engine("sqlite:///users.db", echo=False)
 Base = declarative_base()
 Session = sessionmaker(bind=engine)
 
-
 class UserCourse(Base):
     __tablename__ = "users_course"
 
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)  # Связь с пользователем
-    course_id = Column(Integer, ForeignKey('courses.id'), nullable=False)  # Связь с курсом
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    course_id = Column(Integer, ForeignKey('courses.id'), nullable=False)
 
     def __repr__(self):
         return f"<UserCourse(id={self.id}, user_id={self.user_id}, course_id={self.course_id})>"
 
-
 # Создание таблицы
 Base.metadata.create_all(engine)
-
 
 class UserCourseManager:
     def __init__(self):
